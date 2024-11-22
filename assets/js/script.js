@@ -1,6 +1,5 @@
 
-/* This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
-*/
+
 
 class Deck {
     constructor() {
@@ -8,7 +7,10 @@ class Deck {
         for (let i = 0; i < 52; i++) {
             this.deck.push(i)
         }
+        this.shuffle()
     }
+    // This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
+
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -23,7 +25,7 @@ class Deck {
     }
 }
 const deck = new Deck;
-
+console.log(deck.deck)
 // Accepts a 
 // *Card number 0-12
 // Suit = heart, spade, diamond, club
@@ -35,11 +37,11 @@ function createCard(number, suit) {
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
     cardBody.style.display = "flex";
-    cardBody.style.width = "2.5in";
-    cardBody.style.height = "3.5in";
+    cardBody.style.width = "125px";
+    cardBody.style.height = "180px";
     cardBody.style.borderRadius = "10px";
     cardBody.style.position = "relative";
-    cardBody.style.padding = "15px"
+    cardBody.style.padding = "15px";
 
 
     // Creates two spans that are positioned absolutely
@@ -177,4 +179,3 @@ function createCard(number, suit) {
     }
     return cardBody
 }
-document.body.append(createCard(5, "club"))
