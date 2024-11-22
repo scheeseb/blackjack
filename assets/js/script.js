@@ -192,3 +192,21 @@ class Board {
         this.playerBoard.push(cardObject)
     }
 }
+
+class Game {
+    constructor() {
+        this.storageKey = "gameSave";
+        this.board = loadGame()
+    }
+    saveGame() {
+        localStorage.setItem(this.storageKey, JSON.stringify(this.board))
+    }
+    loadGame() {
+        const savedGameJson = localStorage.getItem(this.storageKey);
+        const board = new Board;
+        if (savedGameJson) {
+            board = JSON.parse(savedGameJson);
+        }
+        return board
+    }
+}
