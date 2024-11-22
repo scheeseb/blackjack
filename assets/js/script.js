@@ -1,4 +1,5 @@
-function cardBody(number, face) {
+function cardBody(number, suit) {
+    const inputNumber = number + 1;
     const cardBody = document.createElement("div");
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
@@ -10,7 +11,7 @@ function cardBody(number, face) {
     cardBody.style.padding = "15px"
 
     function appendSpans() {
-        const color = ((face === "heart" || face === "diamond") && "red") || "black";
+        const color = ((suit === "heart" || suit === "diamond") && "red") || "black";
         const span0 = document.createElement("span");
         span0.style.position = "absolute";
         span0.style.fontSize = "32px";
@@ -19,7 +20,8 @@ function cardBody(number, face) {
         span0.style.left = "10px";
         span0.style.top = "10px"
         span0.style.color = color;
-        span0.textContent = number
+        span0.textContent = inputNumber
+
         const span1 = document.createElement("span");
         span1.style.position = "absolute";
         span1.style.fontSize = "32px";
@@ -29,7 +31,19 @@ function cardBody(number, face) {
         span1.style.bottom = "10px"
         span1.style.transform = "rotate(180deg)";
         span1.style.color = color;
-        span1.textContent = number
+        span1.textContent = inputNumber
+        if (number === 11) {
+            span0.textContent = "J";
+            span1.textContent = "J";
+        }
+        if (number === 12) {
+            span0.textContent = "Q";
+            span1.textContent = "Q";
+        }
+        if (number === 13) {
+            span0.textContent = "K";
+            span1.textContent = "K";
+        }
 
         cardBody.append(span0, span1)
     }
@@ -54,12 +68,12 @@ function cardBody(number, face) {
     const rightColumnn = columnnArray[2]
     const allSymbols = [];
 
-    if (typeof number === "number") {
-        const symbolSource = (face === "heart" && "./assets/cardAssets/symbols/hearts.png") ||
-            (face === "club" && "./assets/cardAssets/symbols/clubs.png") ||
-            (face === "diamond" && "./assets/cardAssets/symbols/diamonds.png") ||
-            (face === "spade" && "./assets/cardAssets/symbols/spades.png");
-        for (let i = 0; i < number; i++) {
+    if (typeof inputNumber === "number") {
+        const symbolSource = (suit === "heart" && "./assets/cardAssets/symbols/hearts.png") ||
+            (suit === "club" && "./assets/cardAssets/symbols/clubs.png") ||
+            (suit === "diamond" && "./assets/cardAssets/symbols/diamonds.png") ||
+            (suit === "spade" && "./assets/cardAssets/symbols/spades.png");
+        for (let i = 0; i < inputNumber; i++) {
             const symbolElement = document.createElement("img");
 
             symbolElement.src = symbolSource;
@@ -90,19 +104,25 @@ function cardBody(number, face) {
         }
     }
     if (allSymbols.length === 11) {
-        cardBody.style.backgroundImage = ((face === "heart" || face === "diamond") && 'url("./assets/cardAssets/images/jackRed.svg")') || 'url("./assets/cardAssets/images/jackBlack.svg")'
+        cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/jackRed.svg")') || 'url("./assets/cardAssets/svg/jackBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
         centerColumnn.append(allSymbols.pop(), allSymbols.pop())
 
     } else if (allSymbols.length === 12) {
-        cardBody.style.backgroundImage = ((face === "heart" || face === "diamond") && 'url("./assets/cardAssets/images/jackRed.svg")') || 'url("./assets/cardAssets/images/jackBlack.svg")'
+        cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/queenRed.svg")') || 'url("./assets/cardAssets/svg/queenBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
-        centerColumnn.append(allSymbols.pop(), allSymbols.pop())
-
+        cardBody.style.backgroundSize = "contain"
+        centerColumnn.append(allSymbols.pop())
+    } else if (allSymbols.length === 13) {
+        cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/kingRed.svg")') || 'url("./assets/cardAssets/svg/kingBlack.svg")'
+        cardBody.style.backgroundRepeat = "no-repeat";
+        cardBody.style.backgroundPosition = "center";
+        cardBody.style.backgroundSize = "contain";
+        centerColumnn.append(allSymbols.pop());
     }
 
     return cardBody
 }
-document.body.append(cardBody(11, "club"))
+document.body.append(cardBody(10, "heart"))
