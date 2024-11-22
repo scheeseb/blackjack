@@ -23,12 +23,14 @@ class Deck {
     }
 }
 const deck = new Deck;
-console.log(deck.shuffle())
-const card = deck.deck.pop()
-console.log(card)
 
+// Accepts a 
+// *Card number 0-12
+// Suit = heart, spade, diamond, club
 function createCard(number, suit) {
+    // add one to 0 indexed input number
     const inputNumber = number + 1;
+    // create a div for the card body
     const cardBody = document.createElement("div");
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
@@ -39,6 +41,8 @@ function createCard(number, suit) {
     cardBody.style.position = "relative";
     cardBody.style.padding = "15px"
 
+
+    // Creates two spans that are positioned absolutely
     function appendSpans() {
         const color = ((suit === "heart" || suit === "diamond") && "red") || "black";
         const span0 = document.createElement("span");
@@ -77,24 +81,27 @@ function createCard(number, suit) {
         cardBody.append(span0, span1)
     }
     appendSpans();
-    function columnns() {
-        const columnns = []
+
+    // Creates 3 equal sized coloums and returns them in an array
+    function columns() {
+        const columns = []
         for (let i = 0; i < 3; i++) {
-            const columnn = document.createElement("div");
-            columnn.style.display = "flex";
-            columnn.style.flexDirection = "column";
-            columnn.style.flex = "1";
-            columnn.style.height = "100%"
-            columnns.push(columnn)
+            const column = document.createElement("div");
+            column.style.display = "flex";
+            column.style.flexDirection = "column";
+            column.style.flex = "1";
+            column.style.height = "100%"
+            columns.push(column)
 
         }
-        return columnns
+        return columns
     }
 
-    const columnnArray = columnns();
-    const leftColumnn = columnnArray[0]
-    const centerColumnn = columnnArray[1]
-    const rightColumnn = columnnArray[2]
+    // create an array and assign each colon
+    const columnArray = columns();
+    const leftColumn = columnArray[0]
+    const centerColumn = columnArray[1]
+    const rightColumn = columnArray[2]
     const allSymbols = [];
 
     if (typeof inputNumber === "number") {
@@ -114,44 +121,43 @@ function createCard(number, suit) {
             allSymbols.push(symbolElement)
         }
     }
-    cardBody.append(leftColumnn, centerColumnn, rightColumnn)
+    cardBody.append(leftColumn, centerColumn, rightColumn)
 
     if (allSymbols.length < 4) {
         allSymbols.forEach(Element => {
-            centerColumnn.append(Element)
+            centerColumn.append(Element)
         });
     }
     let originalLength = allSymbols.length;;
     if (allSymbols.length >= 4 && allSymbols.length <= 10) {
         if (originalLength % 2 === 1) {
-            centerColumnn.append(allSymbols.pop());
+            centerColumn.append(allSymbols.pop());
         }
         originalLength = allSymbols.length;
         for (let i = 0; i < originalLength / 2; i++) {
-            leftColumnn.append(allSymbols.pop())
-            rightColumnn.append(allSymbols.pop())
+            leftColumn.append(allSymbols.pop())
+            rightColumn.append(allSymbols.pop())
         }
     }
     if (allSymbols.length === 11) {
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/jackRed.svg")') || 'url("./assets/cardAssets/svg/jackBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
-        centerColumnn.append(allSymbols.pop(), allSymbols.pop())
+        centerColumn.append(allSymbols.pop(), allSymbols.pop())
 
     } else if (allSymbols.length === 12) {
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/queenRed.svg")') || 'url("./assets/cardAssets/svg/queenBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
         cardBody.style.backgroundSize = "contain"
-        centerColumnn.append(allSymbols.pop())
+        centerColumn.append(allSymbols.pop())
     } else if (allSymbols.length === 13) {
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/kingRed.svg")') || 'url("./assets/cardAssets/svg/kingBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
         cardBody.style.backgroundSize = "contain";
-        centerColumnn.append(allSymbols.pop());
+        centerColumn.append(allSymbols.pop());
     }
 
     return cardBody
 }
-document.body.append(createCard(10, "heart"))
