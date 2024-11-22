@@ -27,8 +27,8 @@ console.log(deck.shuffle())
 const card = deck.deck.pop()
 console.log(card)
 
-function cardBody(number, suit) {
-    const inputNumber = number;
+function createCard(number, suit) {
+    const inputNumber = number + 1;
     const cardBody = document.createElement("div");
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
@@ -154,3 +154,4 @@ function cardBody(number, suit) {
 
     return cardBody
 }
+document.body.append(createCard(10, "heart"))
