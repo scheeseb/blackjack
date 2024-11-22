@@ -1,0 +1,95 @@
+function cardBody(number, face) {
+    const cardBody = document.createElement("div");
+    cardBody.className = "playingCard"
+    cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
+    cardBody.style.display = "flex";
+    cardBody.style.width = "2.5in";
+    cardBody.style.height = "3.5in";
+    cardBody.style.borderRadius = "10px";
+    cardBody.style.position = "relative";
+    cardBody.style.padding = "15px"
+
+    function appendSpans() {
+        const color = ((face === "heart" || face === "diamond") && "red") || "black";
+        const span0 = document.createElement("span");
+        span0.style.position = "absolute";
+        span0.style.fontSize = "32px";
+        span0.style.fontWeight = "bolder";
+        span0.style.fontFamily = "serif";
+        span0.style.left = "10px";
+        span0.style.top = "10px"
+        span0.style.color = color;
+        span0.textContent = number
+        const span1 = document.createElement("span");
+        span1.style.position = "absolute";
+        span1.style.fontSize = "32px";
+        span1.style.fontWeight = "bolder";
+        span1.style.fontFamily = "serif";
+        span1.style.right = "10px";
+        span1.style.bottom = "10px"
+        span1.style.transform = "rotate(180deg)";
+        span1.style.color = color;
+        span1.textContent = number
+
+        cardBody.append(span0, span1)
+    }
+    appendSpans();
+    function columnns() {
+        const columnns = []
+        for (let i = 0; i < 3; i++) {
+            const columnn = document.createElement("div");
+            columnn.style.display = "flex";
+            columnn.style.flexDirection = "column";
+            columnn.style.flex = "1";
+            columnn.style.height = "100%"
+            columnns.push(columnn)
+
+        }
+        return columnns
+    }
+
+    const columnnArray = columnns();
+    const leftColumnn = columnnArray[0]
+    const centerColumnn = columnnArray[1]
+    const rightColumnn = columnnArray[2]
+    const allSymbols = [];
+
+    if (typeof number === "number") {
+        const symbolSource = (face === "heart" && "./assets/cardAssets/symbols/hearts.png") ||
+            (face === "club" && "./assets/cardAssets/symbols/clubs.png") ||
+            (face === "diamond" && "./assets/cardAssets/symbols/diamonds.png") ||
+            (face === "spades" && "./assets/cardAssets/symbols/spades.png");
+        for (let i = 0; i < number; i++) {
+            const symbolElement = document.createElement("img");
+
+            symbolElement.src = symbolSource;
+            symbolElement.style.height = "auto";
+            symbolElement.style.width = "50%";
+            symbolElement.style.alignitems = "space-between"
+            symbolElement.style.margin = "auto"
+
+            allSymbols.push(symbolElement)
+        }
+    }
+    cardBody.append(leftColumnn, centerColumnn, rightColumnn)
+
+    if (allSymbols.length < 4) {
+        allSymbols.forEach(Element => {
+            centerColumnn.append(Element)
+        });
+    }
+    let originalLength = allSymbols.length;;
+    if (allSymbols.length >= 4 && allSymbols.length <= 10) {
+        if (originalLength % 2 === 1) {
+            centerColumnn.append(allSymbols.pop());
+        }
+        originalLength = allSymbols.length;
+        for (let i = 0; i < originalLength / 2; i++) {
+            leftColumnn.append(allSymbols.pop())
+            rightColumnn.append(allSymbols.pop())
+        }
+    }
+
+    return cardBody
+}
+document.body.append(cardBody(8, "heart"))
