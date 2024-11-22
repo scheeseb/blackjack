@@ -5,12 +5,16 @@
   margin: 0;
 }
 :root {
-  --replaceMeBrown: hsl(29, 66%, 20%);
+  --replaceMeBrown: hsl(23, 44%, 14%);
 }
 
 @font-face {
   font-family: casinoSign3d;
   src: url(../fonts/Casino3DLinesMarquee.ttf);
+}
+@font-face {
+  font-family: casinoSign;
+  src: url(../fonts/CasinoShadow.ttf);
 }
 
 @keyframes moveLeftRight {
@@ -18,8 +22,11 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-1px);
+    transform: translateX(1px);
   }
+}
+body {
+  background-color: hsl(0, 85%, 11%);
 }
 
 header {
@@ -30,6 +37,8 @@ header {
   height: 20vh;
   min-height: 140px;
   position: relative;
+  border: 10px black double;
+  border-radius: 10px;
 }
 header h1 {
   font-size: 15vw;
@@ -42,6 +51,32 @@ header h1:nth-child(2) {
   z-index: 0;
   color: yellow;
 }
-main h2 {
-  flex: 1;
+
+.table {
+  height: 60vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin: 1rem;
+  gap: 1rem;
+  /* transform: rotateX(30deg);
+  transform-origin: center; */
+  background-color: hsl(140, 82%, 13%);
+  padding: 1rem;
+  margin: auto;
+  border-radius: 10px;
+}
+.table div {
+  position: relative;
+  border: solid black;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+}
+.table h2 {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: casinoSign;
+  font-size: 3rem;
 }
