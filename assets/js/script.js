@@ -19,6 +19,7 @@ function shuffle() {
 
 
 function cardBody(number, suit) {
+    const inputNumber = number;
     const cardBody = document.createElement("div");
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
@@ -51,15 +52,15 @@ function cardBody(number, suit) {
         span1.style.transform = "rotate(180deg)";
         span1.style.color = color;
         span1.textContent = inputNumber
-        if (number === 11) {
+        if (inputNumber === 11) {
             span0.textContent = "J";
             span1.textContent = "J";
         }
-        if (number === 12) {
+        if (inputNumber === 12) {
             span0.textContent = "Q";
             span1.textContent = "Q";
         }
-        if (number === 13) {
+        if (inputNumber === 13) {
             span0.textContent = "K";
             span1.textContent = "K";
         }
