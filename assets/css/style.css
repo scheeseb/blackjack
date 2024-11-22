@@ -7,9 +7,19 @@
 :root {
   --replaceMeBrown: hsl(29, 66%, 20%);
 }
+
 @font-face {
   font-family: casinoSign3d;
   src: url(../fonts/Casino3DLinesMarquee.ttf);
+}
+
+@keyframes moveLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1px);
+  }
 }
 
 header {
@@ -18,10 +28,19 @@ header {
   align-items: center;
   background-color: var(--replaceMeBrown);
   height: 20vh;
+  min-height: 140px;
+  position: relative;
 }
 header h1 {
   font-size: 15vw;
   font-family: casinoSign3d;
+  z-index: 1;
+}
+header h1:nth-child(2) {
+  position: absolute;
+  animation: moveLeftRight 0.5s infinite alternate;
+  z-index: 0;
+  color: yellow;
 }
 main h2 {
   flex: 1;
