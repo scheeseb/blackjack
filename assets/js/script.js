@@ -5,12 +5,19 @@ class Deck {
     constructor() {
         this.deck = [];
         for (let i = 0; i < 52; i++) {
-            this.deck.push(i)
+            this.deck.push(
+                {
+                    cardIndex: i,
+                    suit: null,
+                    number: null
+                    // TODO: Add Jeff's 'number to name' logic here as a function call that sets each card as it is created
+                }
+            )
         }
         this.shuffle()
     }
-    // This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
 
+    // This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -190,6 +197,8 @@ class Board {
     dealToPlayer(cardObject) {
         this.playerBoard.push(cardObject)
     }
+    // TODO: Create a function that accepts an array of card objects and returns the sum
+    // TODO: Create a function that accepts a board array and returns "under", "blackjack", or "bust"
 }
 
 class Game {
@@ -224,6 +233,11 @@ class Game {
 
         return [board, deck]
     }
+    // TODO: Create a funtion that clear the current boards
+    clearBoard() { }
+    // TODO: Create a function that replaces the current deck
+    newDeck() { }
+
 }
 
 const theGame = new Game
