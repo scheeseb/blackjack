@@ -1,22 +1,31 @@
 
 /* This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
 */
-function shuffle() {
-    for (var array = [], i = 0; i < 52; ++i)
-        array[i] = i + 1;
 
-    var tmp, current, top = array.length;
-
-    if (top) while (--top) {
-        current = Math.floor(Math.random() * (top + 1));
-        tmp = array[current];
-        array[current] = array[top];
-        array[top] = tmp;
+class Deck {
+    constructor() {
+        this.deck = [];
+        for (let i = 0; i < 52; i++) {
+            this.deck.push(i)
+        }
     }
-    return array;
+    shuffle() {
+        let array = this.deck
+        let tmp, current, top = this.deck.length;
+
+        if (top) while (--top) {
+            current = Math.floor(Math.random() * (top + 1));
+            tmp = array[current];
+            array[current] = array[top];
+            array[top] = tmp;
+        }
+        return array;
+    }
 }
-
-
+const deck = new Deck;
+console.log(deck.shuffle())
+const card = deck.deck.pop()
+console.log(card)
 
 function cardBody(number, suit) {
     const inputNumber = number;
