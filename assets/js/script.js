@@ -58,7 +58,7 @@ function cardBody(number, face) {
         const symbolSource = (face === "heart" && "./assets/cardAssets/symbols/hearts.png") ||
             (face === "club" && "./assets/cardAssets/symbols/clubs.png") ||
             (face === "diamond" && "./assets/cardAssets/symbols/diamonds.png") ||
-            (face === "spades" && "./assets/cardAssets/symbols/spades.png");
+            (face === "spade" && "./assets/cardAssets/symbols/spades.png");
         for (let i = 0; i < number; i++) {
             const symbolElement = document.createElement("img");
 
@@ -89,7 +89,20 @@ function cardBody(number, face) {
             rightColumnn.append(allSymbols.pop())
         }
     }
+    if (allSymbols.length === 11) {
+        cardBody.style.backgroundImage = ((face === "heart" || face === "diamond") && 'url("./assets/cardAssets/images/jackRed.svg")') || 'url("./assets/cardAssets/images/jackBlack.svg")'
+        cardBody.style.backgroundRepeat = "no-repeat";
+        cardBody.style.backgroundPosition = "center";
+        centerColumnn.append(allSymbols.pop(), allSymbols.pop())
+
+    } else if (allSymbols.length === 12) {
+        cardBody.style.backgroundImage = ((face === "heart" || face === "diamond") && 'url("./assets/cardAssets/images/jackRed.svg")') || 'url("./assets/cardAssets/images/jackBlack.svg")'
+        cardBody.style.backgroundRepeat = "no-repeat";
+        cardBody.style.backgroundPosition = "center";
+        centerColumnn.append(allSymbols.pop(), allSymbols.pop())
+
+    }
 
     return cardBody
 }
-document.body.append(cardBody(8, "heart"))
+document.body.append(cardBody(11, "club"))
