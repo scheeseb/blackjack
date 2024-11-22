@@ -2,10 +2,12 @@
 
 
 class Deck {
-    constructor() {
+    constructor(howManyDecks = 1) {
         this.deck = [];
-        for (let i = 0; i < 52; i++) {
-            this.deck.push(i)
+        for (let i = 0; i < howManyDecks; i++) {
+            for (let i = 0; i < 52; i++) {
+                this.deck.push(i)
+            }
         }
         this.shuffle()
     }
@@ -209,7 +211,7 @@ class Game {
         const savedDeckJson = localStorage.getItem("deck");
 
         let board = new Board;
-        let deck = new Deck
+        let deck = new Deck(1)
 
         if (savedBoardJson) {
             board = JSON.parse(localStorage.getItem("board"));
