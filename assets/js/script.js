@@ -25,7 +25,6 @@ class Deck {
     }
 }
 const deck = new Deck;
-console.log(deck.deck)
 // Accepts a 
 // *Card number 0-12
 // Suit = heart, spade, diamond, club
@@ -196,17 +195,37 @@ class Board {
 class Game {
     constructor() {
         this.storageKey = "gameSave";
-        this.board = loadGame()
+        this.board = this.loadGame()[0];
+        this.deck = this.loadGame()[1]
     }
     saveGame() {
-        localStorage.setItem(this.storageKey, JSON.stringify(this.board))
+        localStorage.setItem("board", JSON.stringify(this.board));
+        localStorage.setItem("deck", JSON.stringify(this.deck))
     }
     loadGame() {
-        const savedGameJson = localStorage.getItem(this.storageKey);
-        const board = new Board;
-        if (savedGameJson) {
-            board = JSON.parse(savedGameJson);
+        const savedBoardJson = localStorage.getItem("board");
+        const savedDeckJson = localStorage.getItem("deck");
+
+        let board = new Board;
+        let deck = new Deck
+
+        if (savedBoardJson) {
+            board = JSON.parse(localStorage.getItem("board"));
+        } else {
+            localStorage.setItem("board", JSON.stringify(board));
         }
-        return board
+
+        if (savedDeckJson) {
+            deck = JSON.parse(localStorage.getItem("deck"));
+        } else {
+            localStorage.setItem("deck", JSON.stringify("deck"))
+        }
+
+
+        return [board, deck]
     }
 }
+
+const theGame = new Game
+console.log(theGame)
+console.log(theGame)
