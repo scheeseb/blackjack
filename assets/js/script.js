@@ -5,14 +5,7 @@ class Deck {
     constructor() {
         this.deck = [];
         for (let i = 0; i < 52; i++) {
-            this.deck.push(
-                {
-                    cardIndex: i,
-                    suit: null,
-                    number: null
-                    // TODO: Add Jeff's 'number to name' logic here as a function call that sets each card as it is created
-                }
-            )
+            this.deck.push(i)
         }
         this.shuffle()
     }
@@ -227,7 +220,7 @@ class Game {
         if (savedDeckJson) {
             deck = JSON.parse(localStorage.getItem("deck"));
         } else {
-            localStorage.setItem("deck", JSON.stringify("deck"))
+            localStorage.setItem("deck", JSON.stringify(deck))
         }
 
 
@@ -241,5 +234,4 @@ class Game {
 }
 
 const theGame = new Game
-console.log(theGame)
 console.log(theGame)
