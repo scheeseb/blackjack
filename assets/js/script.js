@@ -83,9 +83,12 @@ class Game {
     clearBoard() { }
     // TODO: Create a function that replaces the current deck
     newDeck() { }
+    // TODO: Create a function that returns the winner ('dealer' or 'player') or false if no one has won
+    winner() { }
 
 }
 
+// We can load a new game after every round. This will allow us to stash the old boards and keep a history
 const theGame = new Game
 console.log(theGame)
 
@@ -242,4 +245,9 @@ class Ui {
         }
         return cardBody
     }
+    // TODO: Make the buttons work with game functionallity
+}
+
+function init() {
+    // TODO: Make the Game and the UI interact here. Buttons and such
 }
