@@ -179,3 +179,16 @@ function createCard(number, suit) {
     }
     return cardBody
 }
+
+class Board {
+    constructor() {
+        this.dealerBoard = [];
+        this.playerBoard = [];
+    }
+    dealToDealer(cardObject) {
+        this.dealerBoard.push(cardObject)
+    }
+    dealToPlayer(cardObject) {
+        this.playerBoard.push(cardObject)
+    }
+}
