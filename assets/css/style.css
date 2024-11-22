@@ -6,6 +6,7 @@
 }
 :root {
   --replaceMeBrown: hsl(23, 44%, 14%);
+  --boardGreen: hsl(140, 82%, 13%);
 }
 
 @font-face {
@@ -57,27 +58,36 @@ header h1:nth-child(2) {
   display: grid;
   grid-template-rows: 1fr 1fr;
   margin: 1rem;
-  gap: 1rem;
+  gap: 1.5rem;
   /* transform: rotateX(30deg);
   transform-origin: center; */
-  background-color: hsl(140, 82%, 13%);
-  padding: 1rem;
+  background-color: var(--boardGreen);
+  padding: 1.5rem;
   margin: auto;
   border-radius: 10px;
 }
-.table div {
+.table > div {
   position: relative;
   border: solid black;
   border-radius: 10px;
   padding: 1rem;
+  padding-bottom: 5px;
   display: flex;
   justify-content: center;
+  align-items: end;
+}
+.playingCard {
+  margin-left: -70px;
+  box-shadow: -5px 5px 5px black;
 }
 .table h2 {
   position: absolute;
-  top: 1rem;
+  top: -1.5rem;
   left: 50%;
   transform: translateX(-50%);
   font-family: casinoSign;
   font-size: 3rem;
+  background-color: var(--boardGreen);
+  border: solid black;
+  border-radius: 10px;
 }

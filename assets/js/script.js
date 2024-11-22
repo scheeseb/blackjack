@@ -37,11 +37,11 @@ function createCard(number, suit) {
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
     cardBody.style.display = "flex";
-    cardBody.style.width = "2.5in";
-    cardBody.style.height = "3.5in";
+    cardBody.style.width = "125px";
+    cardBody.style.height = "180px";
     cardBody.style.borderRadius = "10px";
     cardBody.style.position = "relative";
-    cardBody.style.padding = "15px"
+    cardBody.style.padding = "15px";
 
 
     // Creates two spans that are positioned absolutely
