@@ -44,27 +44,31 @@ function createCard(number, suit) {
 
     // Creates two spans that are positioned absolutely
     function appendSpans() {
-        const color = ((suit === "heart" || suit === "diamond") && "red") || "black";
-        const span0 = document.createElement("span");
-        span0.style.position = "absolute";
-        span0.style.fontSize = "32px";
-        span0.style.fontWeight = "bolder";
-        span0.style.fontFamily = "serif";
-        span0.style.left = "10px";
-        span0.style.top = "10px"
-        span0.style.color = color;
-        span0.textContent = inputNumber
+        function createSpan() {
+            const span = document.createElement("span");
+            span.style.position = "absolute";
+            span.style.fontSize = "32px";
+            span.style.fontWeight = "bolder";
+            span.style.fontFamily = "serif";
+            span.style.color = color;
+            span.textContent = inputNumber;
 
-        const span1 = document.createElement("span");
-        span1.style.position = "absolute";
-        span1.style.fontSize = "32px";
-        span1.style.fontWeight = "bolder";
-        span1.style.fontFamily = "serif";
+            return span
+        }
+
+        const color = ((suit === "heart" || suit === "diamond") && "red") || "black";
+        const span0 = createSpan();
+        const span1 = createSpan()
+
+        // Position each span individually and rotate the second
+        span0.style.left = "10px";
+        span0.style.top = "10px";
+
         span1.style.right = "10px";
         span1.style.bottom = "10px"
         span1.style.transform = "rotate(180deg)";
-        span1.style.color = color;
-        span1.textContent = inputNumber
+
+
         if (inputNumber === 11) {
             span0.textContent = "J";
             span1.textContent = "J";
@@ -78,7 +82,7 @@ function createCard(number, suit) {
             span1.textContent = "K";
         }
 
-        cardBody.append(span0, span1)
+        cardBody.append(span0, span1);
     }
     appendSpans();
 
@@ -90,25 +94,28 @@ function createCard(number, suit) {
             column.style.display = "flex";
             column.style.flexDirection = "column";
             column.style.flex = "1";
-            column.style.height = "100%"
-            columns.push(column)
+            column.style.height = "100%";
+            columns.push(column);
 
         }
-        return columns
+        return columns;
     }
 
-    // create an array and assign each colon
+    // create an array and assign each column as the appropriate variable
     const columnArray = columns();
-    const leftColumn = columnArray[0]
-    const centerColumn = columnArray[1]
-    const rightColumn = columnArray[2]
+    const leftColumn = columnArray[0];
+    const centerColumn = columnArray[1];
+    const rightColumn = columnArray[2];
     const allSymbols = [];
 
     if (typeof inputNumber === "number") {
+        // Determine which symbol to load depending on the suit
         const symbolSource = (suit === "heart" && "./assets/cardAssets/symbols/hearts.png") ||
             (suit === "club" && "./assets/cardAssets/symbols/clubs.png") ||
             (suit === "diamond" && "./assets/cardAssets/symbols/diamonds.png") ||
             (suit === "spade" && "./assets/cardAssets/symbols/spades.png");
+
+        // Create as many symbols as the input number and add them to the allSymbols array 
         for (let i = 0; i < inputNumber; i++) {
             const symbolElement = document.createElement("img");
 
@@ -123,22 +130,30 @@ function createCard(number, suit) {
     }
     cardBody.append(leftColumn, centerColumn, rightColumn)
 
+    // IF the symbol array is 3 or less, add all of the symbols to the center div
     if (allSymbols.length < 4) {
         allSymbols.forEach(Element => {
             centerColumn.append(Element)
         });
     }
+    // Define the original length for use in the calculations
     let originalLength = allSymbols.length;;
+
+    // IF there are between 4 and 10 symbols
     if (allSymbols.length >= 4 && allSymbols.length <= 10) {
+        // IF there are an odd numnber of symbols add one to the center column
         if (originalLength % 2 === 1) {
             centerColumn.append(allSymbols.pop());
         }
         originalLength = allSymbols.length;
+
+        // Add a symbol to each outside column alernating to maintain the balance of the colums
         for (let i = 0; i < originalLength / 2; i++) {
             leftColumn.append(allSymbols.pop())
             rightColumn.append(allSymbols.pop())
         }
     }
+    // IF it is a jack, apply the jack background image and paste in two symbols
     if (allSymbols.length === 11) {
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/jackRed.svg")') || 'url("./assets/cardAssets/svg/jackBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
@@ -146,18 +161,20 @@ function createCard(number, suit) {
         centerColumn.append(allSymbols.pop(), allSymbols.pop())
 
     } else if (allSymbols.length === 12) {
+        // IF it is a queen, apply the queen background image and paste in a symbol
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/queenRed.svg")') || 'url("./assets/cardAssets/svg/queenBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
         cardBody.style.backgroundSize = "contain"
         centerColumn.append(allSymbols.pop())
     } else if (allSymbols.length === 13) {
+        // IF it is a king, apply the king background image and paste in a symbol
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/kingRed.svg")') || 'url("./assets/cardAssets/svg/kingBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
         cardBody.style.backgroundSize = "contain";
         centerColumn.append(allSymbols.pop());
     }
-
     return cardBody
 }
+document.body.append(createCard(5, "club"))
