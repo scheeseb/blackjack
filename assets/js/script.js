@@ -2,23 +2,23 @@
 /* This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
 */
 function shuffle() {
-    for (var array=[],i=0;i<52;++i)
-        array[i]=i+1;
-   
+    for (var array = [], i = 0; i < 52; ++i)
+        array[i] = i + 1;
+
     var tmp, current, top = array.length;
 
-    if(top) while(--top) {
+    if (top) while (--top) {
         current = Math.floor(Math.random() * (top + 1));
         tmp = array[current];
         array[current] = array[top];
         array[top] = tmp;
     }
-return array;
+    return array;
 }
 
 
 
-function cardBody(number, face) {
+function cardBody(number, suit) {
     const cardBody = document.createElement("div");
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
