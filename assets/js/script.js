@@ -154,4 +154,3 @@ function cardBody(number, suit) {
 
     return cardBody
 }
-document.body.append(cardBody(10, "heart"))
