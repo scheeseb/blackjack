@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+:root {
+  --replaceMeBrown: hsl(29, 66%, 20%);
+}
+@font-face {
+  font-family: casinoSign3d;
+  src: url(../fonts/Casino3DLinesMarquee.ttf);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--replaceMeBrown);
+  height: 20vh;
+}
+header h1 {
+  font-size: 15vw;
+  font-family: casinoSign3d;
+}
+main h2 {
+  flex: 1;
+}
