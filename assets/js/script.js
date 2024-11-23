@@ -1,4 +1,22 @@
 
+function extractCard(item) {
+    //13 is the number of cards per suite.  This logic extacts the value and suite of the card which in the deck is represented 0-51 for the 52 cards
+    const cardInfo = { value: item % 13, suite: Math.floor(item / 13) }
+    return cardInfo;
+}
+
+let deck = new Deck;
+let card;
+
+let times = 58;
+while (times--) {
+    if (deck.deck.length == 0) {
+        deck = new Deck;
+        console.log("new deal");
+    }
+    card = extractCard(deck.deck.pop());
+    console.log(card);
+}
 
 
 class Deck {
@@ -24,22 +42,21 @@ class Deck {
             array[top] = tmp;
         }
         return array;
+
     }
 }
-const deck = new Deck;
-// Accepts a 
-// *Card number 0-12
-// Suit = heart, spade, diamond, club
 
 
 class Board {
     constructor() {
         this.dealerBoard = [];
         this.playerBoard = [];
+
     }
     dealToDealer(cardObject) {
         this.dealerBoard.push(cardObject)
     }
+
     dealToPlayer(cardObject) {
         this.playerBoard.push(cardObject)
     }
@@ -47,6 +64,35 @@ class Board {
     // TODO: Create a function that accepts a board array and returns "under", "blackjack", or "bust"
 }
 
+
+
+/*
+pseudo code/game rules for game logic:
+    rules: all cards to player are dealt face up
+        value of aces are 1 or 11, rule to 1 or 11 if hand + 11 <= 21 then the ace is worth 11 otherwise its worth 1
+ 
+    
+    deal a card to player
+    deal a card to the dealer face down
+    deal a card to player
+    deal a card to the dealer face up
+ 
+    rules for blackjack after the deal
+        if player has blackjack flip dealers down card face up, check for dealer blackjack if dealer has blackjack its a push otherwise player wins
+        if the dealer has an ace for his up card (get the sum of the dealers hand) if the dealer has blackjack flip the down card to show the  blackjack, player loses
+ 
+    continuing game play past the initial deal
+        Player is asked to take a hit or stay
+            hit the player gets a card the value of the card is added to the hand if it exceeds 21 the player loses the hand
+            the player can hit as many times as they like until they stay or until they bust.
+        player stays play is turned over to dealer
+            if the dealer has a score of less than 17 they will take hits until their score >= 17 or they bust
+        after the dealer is done hitting or has stood the two hands are compared for scoring 
+        player > dealer player wins
+        player < dealer player loses
+        player = dealer its a push
+ 
+*/
 class Game {
     constructor() {
         this.storageKey = "gameSave";
@@ -85,6 +131,7 @@ class Game {
     newDeck() { }
     // TODO: Create a function that returns the winner ('dealer' or 'player') or false if no one has won
     winner() { }
+
 
 }
 
