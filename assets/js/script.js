@@ -1,3 +1,26 @@
+class Card {
+    constructor(index) {
+        this.index = index;
+        this.suit = this.getSuit(index);
+        this.number = this.getNumber(index);
+    }
+    getSuit(index) {
+        if (index > 51 || index < 0) {
+            return console.error("Provided index is out of range at Card.getSuit")
+        }
+        const faceIndex = Math.floor(index / 13);
+        const face = (faceIndex === 0 && "heart") ||
+            (faceIndex === 1 && "spade") ||
+            (faceIndex === 2 && "club") ||
+            (faceIndex === 3 && "diamond")
+        return face
+    };
+    getNumber(index) {
+        return Math.floor(index % 13) + 1;
+    }
+}
+
+
 class Deck {
     constructor(howManyDecks = 1) {
         this.deck = [];
