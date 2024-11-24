@@ -62,6 +62,9 @@ class Deck {
         }
         return array;
     }
+    pullCard() {
+        return this.deck.shift()
+    }
 }
 
 /*
@@ -73,24 +76,19 @@ this.total will return the current total of all the cards in the hand
 class Hand {
     constructor() {
         this.hand = [];
-        this.total = this.handSum();
-        this.status = this.findStatus()
     }
-    dealToDealer(cardObject) {
-        this.dealerBoard.push(cardObject)
+    deal(cardObject) {
+        this.hand.push(cardObject)
     }
-
-    dealToPlayer(cardObject) {
-        this.playerBoard.push(cardObject)
-    }
-    handSum() {
-        let total = 0
+    total() {
+        let total = 0;
+        console.log(this.hand)
         this.hand.forEach(card => {
             total = total + card.number
         })
         return total
     }
-    findStatus() {
+    status() {
         if (this.total < 21) {
             return "under";
         } else if (this.total > 21) {
@@ -100,8 +98,10 @@ class Hand {
         }
     }
 }
-const aHand = new Hand
-console.log(aHand)
+const theHand = new Hand;
+const theDeck = new Deck;
+theHand.deal(theDeck.pullCard())
+console.log(theHand.total())
 
 
 /*
@@ -179,7 +179,6 @@ class Game {
     // TODO: Create a function that returns the winner ('dealer' or 'player') or undefined if no one has won
     winner() { }
 }
-const aGame = new Game;
 
 class Ui {
     constructor() { }
