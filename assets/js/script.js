@@ -108,16 +108,19 @@ pseudo code/game rules for game logic:
 */
 class Game {
     constructor() {
+        this.tableStorageKey = "playingTable"
+        this.deckStorageKey = "cardDeck"
         this.table = this.loadGame()[0]
         this.deck = this.loadGame()[1]
+
     }
     saveGame() {
-        localStorage.setItem("board", JSON.stringify(this.table));
-        localStorage.setItem("deck", JSON.stringify(this.deck))
+        localStorage.setItem(this.tableStorageKey, JSON.stringify(this.table));
+        localStorage.setItem(this.deckStorageKey, JSON.stringify(this.deck))
     }
     loadGame() {
-        const savedBoardJson = localStorage.getItem("board");
-        const savedDeckJson = localStorage.getItem("deck");
+        const savedBoardJson = localStorage.getItem(this.tableStorageKey);
+        const savedDeckJson = localStorage.getItem(this.deckStorageKey);
 
         let playTable = {
             player: new Hand,
@@ -126,15 +129,15 @@ class Game {
         let deck = new Deck(1)
 
         if (savedBoardJson) {
-            playTable = JSON.parse(localStorage.getItem("board"));
+            playTable = JSON.parse(localStorage.getItem(this.tableStorageKey));
         } else {
-            localStorage.setItem("board", JSON.stringify(playTable));
+            localStorage.setItem(this.tableStorageKey, JSON.stringify(playTable));
         }
 
         if (savedDeckJson) {
-            deck = JSON.parse(localStorage.getItem("deck"));
+            deck = JSON.parse(localStorage.getItem(this.deckStorageKey));
         } else {
-            localStorage.setItem("deck", JSON.stringify(deck))
+            localStorage.setItem(this.deckStorageKey, JSON.stringify(deck))
         }
 
 
@@ -143,11 +146,7 @@ class Game {
     // TODO: Create a function that can take a card off the deck and deal it to a board
 
     clearTable() {
-        this.table = {
-            player: new Hand,
-            dealer: new Hand,
-        };
-        this.saveGame()
+        localStorage.removeItem(this.tableStorageKey)
     }
     // TODO: Create a function that replaces the current deck
     newDeck() { }
