@@ -67,7 +67,6 @@ class Hand {
         })
         return total
     }
-    // TODO: Create a function that accepts a hand array and returns "under", "blackjack", or "bust"
     findStatus() {
         if (this.total < 21) {
             return "under";
@@ -78,8 +77,6 @@ class Hand {
         }
     }
 }
-const hand = new Hand;
-console.log(hand)
 
 /*
 pseudo code/game rules for game logic:
@@ -110,11 +107,11 @@ pseudo code/game rules for game logic:
 */
 class Game {
     constructor() {
-        this.board = this.loadGame()[0]
+        this.table = this.loadGame()[0]
         this.deck = this.loadGame()[1]
     }
     saveGame() {
-        localStorage.setItem("board", JSON.stringify(this.board));
+        localStorage.setItem("board", JSON.stringify(this.table));
         localStorage.setItem("deck", JSON.stringify(this.deck))
     }
     loadGame() {
@@ -142,16 +139,24 @@ class Game {
 
         return [playTable, deck]
     }
-    // TODO: Create a funtion that clear the current boards
-    clearBoard() { }
+    // TODO: Create a function that can take a card off the deck and deal it to a board
+
+    clearTable() {
+        this.table = {
+            player: new Hand,
+            dealer: new Hand,
+        };
+        this.saveGame()
+    }
     // TODO: Create a function that replaces the current deck
     newDeck() { }
-    // TODO: Create a function that returns the winner ('dealer' or 'player') or false if no one has won
+    // TODO: Create a function that returns the winner ('dealer' or 'player') or undefined if no one has won
     winner() { }
-
-
 }
-
+const aGame = new Game;
+console.log(aGame)
+aGame.clearTable
+console.log(aGame)
 
 class Ui {
     constructor() { }
