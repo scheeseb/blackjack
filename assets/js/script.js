@@ -71,7 +71,15 @@ class Deck {
 This Hand class creates an array as this.hand
 this.hand will be where cards are stored
 
-this.total will return the current total of all the cards in the hand
+The deal function adds whatever you give it to the this.hand array
+
+The total function returns the current total of the hand
+
+The status function returns if the hand
+is 'under' 21,
+or 'bust'ed over 21,
+or else it must be 'blackjack'
+
 */
 class Hand {
     constructor() {
@@ -98,10 +106,6 @@ class Hand {
         }
     }
 }
-const theHand = new Hand;
-const theDeck = new Deck;
-theHand.deal(theDeck.pullCard())
-console.log(theHand.total())
 
 
 /*
@@ -130,6 +134,28 @@ pseudo code/game rules for game logic:
         player < dealer player loses
         player = dealer its a push
  
+*/
+
+/*
+This Game class has a function called loadGame.
+
+LoadGame first tries to create a variable of the saved
+board and deck from local storage.
+It then creates a new version of the board and the deck.
+IF the saves were able to be recovered they will overwrite the
+new instances of the board and deck (each handled individually).
+or ELSE if the saves were not found the new version is saved to local storage.
+Whichever version was left after this process is then returned in an array
+
+this.table gets its value from the loadGame function.
+this.deck also gets its value from the loadGame function.
+
+If anything happens in the table or deck you will need to call the saveGame() function.
+failing to do this will result in the previous version of the object being loaded
+
+The clearTable function removes the table key from local storage,
+as the clearDeck function removes the deck.
+The next time these are accessed new versions will be created.
 */
 class Game {
     constructor() {
@@ -172,14 +198,16 @@ class Game {
 
     clearTable() {
         localStorage.removeItem(this.tableStorageKey);
-        localStorage.removeItem(this.deckStorageKey);
     }
     // TODO: Create a function that replaces the current deck
-    newDeck() { }
+    clearDeck() {
+        localStorage.removeItem(this.deckStorageKey);
+    }
     // TODO: Create a function that returns the winner ('dealer' or 'player') or undefined if no one has won
     winner() { }
 }
 
+// This is a UI library that contains functions for altering the DOM
 class Ui {
     constructor() { }
     createCard(number, suit) {
