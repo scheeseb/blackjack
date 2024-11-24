@@ -1,24 +1,3 @@
-
-function extractCard(item) {
-    //13 is the number of cards per suite.  This logic extacts the value and suite of the card which in the deck is represented 0-51 for the 52 cards
-    const cardInfo = { value: item % 13, suite: Math.floor(item / 13) }
-    return cardInfo;
-}
-
-let deck = new Deck;
-let card;
-
-let times = 58;
-while (times--) {
-    if (deck.deck.length == 0) {
-        deck = new Deck;
-        console.log("new deal");
-    }
-    card = extractCard(deck.deck.pop());
-    console.log(card);
-}
-
-
 class Deck {
     constructor(howManyDecks = 1) {
         this.deck = [];
@@ -47,11 +26,10 @@ class Deck {
 }
 
 
-class Board {
+class Hand {
     constructor() {
-        this.dealerBoard = [];
-        this.playerBoard = [];
-
+        this.hand = [];
+        this.total = this.handSum(this.hand)
     }
     dealToDealer(cardObject) {
         this.dealerBoard.push(cardObject)
@@ -61,6 +39,13 @@ class Board {
         this.playerBoard.push(cardObject)
     }
     // TODO: Create a function that accepts an array of card objects and returns the sum
+    handSum(board) {
+        let total = 0
+        board.forEach(card => {
+            total = total + card
+        })
+        return total
+    }
     // TODO: Create a function that accepts a board array and returns "under", "blackjack", or "bust"
 }
 
@@ -95,8 +80,7 @@ pseudo code/game rules for game logic:
 */
 class Game {
     constructor() {
-        this.storageKey = "gameSave";
-        this.board = this.loadGame()[0];
+        this.board = this.loadGame()[0]
         this.deck = this.loadGame()[1]
     }
     saveGame() {
@@ -107,13 +91,16 @@ class Game {
         const savedBoardJson = localStorage.getItem("board");
         const savedDeckJson = localStorage.getItem("deck");
 
-        let board = new Board;
+        let playTable = {
+            player: new Hand,
+            dealer: new Hand,
+        };
         let deck = new Deck(1)
 
         if (savedBoardJson) {
-            board = JSON.parse(localStorage.getItem("board"));
+            playTable = JSON.parse(localStorage.getItem("board"));
         } else {
-            localStorage.setItem("board", JSON.stringify(board));
+            localStorage.setItem("board", JSON.stringify(playTable));
         }
 
         if (savedDeckJson) {
@@ -123,7 +110,7 @@ class Game {
         }
 
 
-        return [board, deck]
+        return [playTable, deck]
     }
     // TODO: Create a funtion that clear the current boards
     clearBoard() { }
