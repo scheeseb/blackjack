@@ -1,21 +1,23 @@
-
-function extractCard(item) {
-    //13 is the number of cards per suite.  This logic extacts the value and suite of the card which in the deck is represented 0-51 for the 52 cards
-    const cardInfo = { value: item % 13, suite: Math.floor(item / 13) }
-    return cardInfo;
-}
-
-let deck = new Deck;
-let card;
-
-let times = 58;
-while (times--) {
-    if (deck.deck.length == 0) {
-        deck = new Deck;
-        console.log("new deal");
+class Card {
+    constructor(index) {
+        this.index = index;
+        this.suit = this.getSuit(index);
+        this.number = this.getNumber(index);
     }
-    card = extractCard(deck.deck.pop());
-    console.log(card);
+    getSuit(index) {
+        if (index > 51 || index < 0) {
+            return console.error("Provided index is out of range at Card.getSuit")
+        }
+        const faceIndex = Math.floor(index / 13);
+        const face = (faceIndex === 0 && "heart") ||
+            (faceIndex === 1 && "spade") ||
+            (faceIndex === 2 && "club") ||
+            (faceIndex === 3 && "diamond")
+        return face
+    };
+    getNumber(index) {
+        return Math.floor(index % 13) + 1;
+    }
 }
 
 
@@ -24,13 +26,12 @@ class Deck {
         this.deck = [];
         for (let i = 0; i < howManyDecks; i++) {
             for (let i = 0; i < 52; i++) {
-                this.deck.push(i)
+                this.deck.push(new Card(i))
             }
         }
         this.shuffle()
     }
 
-    // This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -42,16 +43,15 @@ class Deck {
             array[top] = tmp;
         }
         return array;
-
     }
 }
 
 
-class Board {
+class Hand {
     constructor() {
-        this.dealerBoard = [];
-        this.playerBoard = [];
-
+        this.hand = [];
+        this.total = this.handSum();
+        this.status = this.findStatus()
     }
     dealToDealer(cardObject) {
         this.dealerBoard.push(cardObject)
@@ -60,11 +60,23 @@ class Board {
     dealToPlayer(cardObject) {
         this.playerBoard.push(cardObject)
     }
-    // TODO: Create a function that accepts an array of card objects and returns the sum
-    // TODO: Create a function that accepts a board array and returns "under", "blackjack", or "bust"
+    handSum() {
+        let total = 0
+        this.hand.forEach(card => {
+            total = total + card
+        })
+        return total
+    }
+    findStatus() {
+        if (this.total < 21) {
+            return "under";
+        } else if (this.total > 21) {
+            return "bust";
+        } else {
+            return "blackjack"
+        }
+    }
 }
-
-
 
 /*
 pseudo code/game rules for game logic:
@@ -95,25 +107,27 @@ pseudo code/game rules for game logic:
 */
 class Game {
     constructor() {
-        this.storageKey = "gameSave";
-        this.board = this.loadGame()[0];
+        this.table = this.loadGame()[0]
         this.deck = this.loadGame()[1]
     }
     saveGame() {
-        localStorage.setItem("board", JSON.stringify(this.board));
+        localStorage.setItem("board", JSON.stringify(this.table));
         localStorage.setItem("deck", JSON.stringify(this.deck))
     }
     loadGame() {
         const savedBoardJson = localStorage.getItem("board");
         const savedDeckJson = localStorage.getItem("deck");
 
-        let board = new Board;
+        let playTable = {
+            player: new Hand,
+            dealer: new Hand,
+        };
         let deck = new Deck(1)
 
         if (savedBoardJson) {
-            board = JSON.parse(localStorage.getItem("board"));
+            playTable = JSON.parse(localStorage.getItem("board"));
         } else {
-            localStorage.setItem("board", JSON.stringify(board));
+            localStorage.setItem("board", JSON.stringify(playTable));
         }
 
         if (savedDeckJson) {
@@ -123,22 +137,26 @@ class Game {
         }
 
 
-        return [board, deck]
+        return [playTable, deck]
     }
-    // TODO: Create a funtion that clear the current boards
-    clearBoard() { }
+    // TODO: Create a function that can take a card off the deck and deal it to a board
+
+    clearTable() {
+        this.table = {
+            player: new Hand,
+            dealer: new Hand,
+        };
+        this.saveGame()
+    }
     // TODO: Create a function that replaces the current deck
     newDeck() { }
-    // TODO: Create a function that returns the winner ('dealer' or 'player') or false if no one has won
+    // TODO: Create a function that returns the winner ('dealer' or 'player') or undefined if no one has won
     winner() { }
-
-
 }
-
-// We can load a new game after every round. This will allow us to stash the old boards and keep a history
-const theGame = new Game
-console.log(theGame)
-
+const aGame = new Game;
+console.log(aGame)
+aGame.clearTable
+console.log(aGame)
 
 class Ui {
     constructor() { }
