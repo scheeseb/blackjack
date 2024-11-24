@@ -1,4 +1,9 @@
-// THIS IS A PUSH TEST
+/*
+This card class accepts an index 0-51 and returns a card object
+
+The object has a suit, number, and color derived from the index
+which is also provided
+*/
 class Card {
     constructor(index) {
         this.index = index;
@@ -6,6 +11,7 @@ class Card {
         this.number = this.getNumber(index);
         this.color = this.getColor()
     }
+    // Init Functions for the this.properties
     getSuit(index) {
         if (index > 51 || index < 0) {
             return console.error("Provided index is out of range at Card.getSuit")
@@ -26,7 +32,13 @@ class Card {
     }
 }
 
-
+/*
+This Deck class creates an array as the this.deck
+It then adds 52 card objects to this.deck
+The card objects are created with the Card class
+These objects are then shuffled with the shuffle function
+The deck will shuffle once upon creation [with new keyword]
+*/
 class Deck {
     constructor(howManyDecks = 1) {
         this.deck = [];
@@ -37,7 +49,7 @@ class Deck {
         }
         this.shuffle()
     }
-
+    // shuffle was written by Jeff Conrad
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -52,7 +64,12 @@ class Deck {
     }
 }
 
+/*
+This Hand class creates an array as this.hand
+this.hand will be where cards are stored
 
+this.total will return the current total of all the cards in the hand
+*/
 class Hand {
     constructor() {
         this.hand = [];
@@ -69,7 +86,7 @@ class Hand {
     handSum() {
         let total = 0
         this.hand.forEach(card => {
-            total = total + card
+            total = total + card.number
         })
         return total
     }
@@ -83,6 +100,9 @@ class Hand {
         }
     }
 }
+const aHand = new Hand
+console.log(aHand)
+
 
 /*
 pseudo code/game rules for game logic:
