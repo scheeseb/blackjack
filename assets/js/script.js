@@ -4,6 +4,8 @@ class Card {
         this.index = index;
         this.suit = this.getSuit(index);
         this.number = this.getNumber(index);
+        this.color = (this.suit === "spade" || this.suit === "club") && "black" ||
+            (this.suit === "diamond" || this.suit === "heart") && "red"
     }
     getSuit(index) {
         if (index > 51 || index < 0) {
@@ -146,7 +148,8 @@ class Game {
     // TODO: Create a function that can take a card off the deck and deal it to a board
 
     clearTable() {
-        localStorage.removeItem(this.tableStorageKey)
+        localStorage.removeItem(this.tableStorageKey);
+        localStorage.removeItem(this.deckStorageKey);
     }
     // TODO: Create a function that replaces the current deck
     newDeck() { }
@@ -154,9 +157,6 @@ class Game {
     winner() { }
 }
 const aGame = new Game;
-console.log(aGame)
-aGame.clearTable
-console.log(aGame)
 
 class Ui {
     constructor() { }
