@@ -4,8 +4,7 @@ class Card {
         this.index = index;
         this.suit = this.getSuit(index);
         this.number = this.getNumber(index);
-        this.color = (this.suit === "spade" || this.suit === "club") && "black" ||
-            (this.suit === "diamond" || this.suit === "heart") && "red"
+        this.color = this.getColor()
     }
     getSuit(index) {
         if (index > 51 || index < 0) {
@@ -20,6 +19,10 @@ class Card {
     };
     getNumber(index) {
         return Math.floor(index % 13) + 1;
+    }
+    getColor() {
+        return (this.suit === "spade" || this.suit === "club") && "black" ||
+            (this.suit === "diamond" || this.suit === "heart") && "red"
     }
 }
 
