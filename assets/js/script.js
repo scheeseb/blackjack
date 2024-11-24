@@ -26,7 +26,7 @@ class Deck {
         this.deck = [];
         for (let i = 0; i < howManyDecks; i++) {
             for (let i = 0; i < 52; i++) {
-                this.deck.push(i)
+                this.deck.push(new Card(i))
             }
         }
         this.shuffle()
