@@ -1,10 +1,17 @@
-// THIS IS A PUSH TEST
+/*
+This card class accepts an index 0-51 and returns a card object
+
+The object has a suit, number, and color derived from the index
+which is also provided
+*/
 class Card {
     constructor(index) {
         this.index = index;
         this.suit = this.getSuit(index);
         this.number = this.getNumber(index);
+        this.color = this.getColor()
     }
+    // Init Functions for the this.properties
     getSuit(index) {
         if (index > 51 || index < 0) {
             return console.error("Provided index is out of range at Card.getSuit")
@@ -19,9 +26,19 @@ class Card {
     getNumber(index) {
         return Math.floor(index % 13) + 1;
     }
+    getColor() {
+        return (this.suit === "spade" || this.suit === "club") && "black" ||
+            (this.suit === "diamond" || this.suit === "heart") && "red"
+    }
 }
 
-
+/*
+This Deck class creates an array as the this.deck
+It then adds 52 card objects to this.deck
+The card objects are created with the Card class
+These objects are then shuffled with the shuffle function
+The deck will shuffle once upon creation [with new keyword]
+*/
 class Deck {
     constructor(howManyDecks = 1) {
         this.deck = [];
@@ -32,7 +49,7 @@ class Deck {
         }
         this.shuffle()
     }
-
+    // shuffle was written by Jeff Conrad
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -45,30 +62,41 @@ class Deck {
         }
         return array;
     }
+    pullCard() {
+        return this.deck.shift()
+    }
 }
 
+/*
+This Hand class creates an array as this.hand
+this.hand will be where cards are stored
 
+The deal function adds whatever you give it to the this.hand array
+
+The total function returns the current total of the hand
+
+The status function returns if the hand
+is 'under' 21,
+or 'bust'ed over 21,
+or else it must be 'blackjack'
+
+*/
 class Hand {
     constructor() {
         this.hand = [];
-        this.total = this.handSum();
-        this.status = this.findStatus()
     }
-    dealToDealer(cardObject) {
-        this.dealerBoard.push(cardObject)
+    deal(cardObject) {
+        this.hand.push(cardObject)
     }
-
-    dealToPlayer(cardObject) {
-        this.playerBoard.push(cardObject)
-    }
-    handSum() {
-        let total = 0
+    total() {
+        let total = 0;
+        console.log(this.hand)
         this.hand.forEach(card => {
-            total = total + card
+            total = total + card.number
         })
         return total
     }
-    findStatus() {
+    status() {
         if (this.total < 21) {
             return "under";
         } else if (this.total > 21) {
@@ -78,6 +106,7 @@ class Hand {
         }
     }
 }
+
 
 /*
 pseudo code/game rules for game logic:
@@ -106,18 +135,43 @@ pseudo code/game rules for game logic:
         player = dealer its a push
  
 */
+
+/*
+This Game class has a function called loadGame.
+
+LoadGame first tries to create a variable of the saved
+board and deck from local storage.
+It then creates a new version of the board and the deck.
+IF the saves were able to be recovered they will overwrite the
+new instances of the board and deck (each handled individually).
+or ELSE if the saves were not found the new version is saved to local storage.
+Whichever version was left after this process is then returned in an array
+
+this.table gets its value from the loadGame function.
+this.deck also gets its value from the loadGame function.
+
+If anything happens in the table or deck you will need to call the saveGame() function.
+failing to do this will result in the previous version of the object being loaded
+
+The clearTable function removes the table key from local storage,
+as the clearDeck function removes the deck.
+The next time these are accessed new versions will be created.
+*/
 class Game {
     constructor() {
+        this.tableStorageKey = "playingTable"
+        this.deckStorageKey = "cardDeck"
         this.table = this.loadGame()[0]
         this.deck = this.loadGame()[1]
+
     }
     saveGame() {
-        localStorage.setItem("board", JSON.stringify(this.table));
-        localStorage.setItem("deck", JSON.stringify(this.deck))
+        localStorage.setItem(this.tableStorageKey, JSON.stringify(this.table));
+        localStorage.setItem(this.deckStorageKey, JSON.stringify(this.deck))
     }
     loadGame() {
-        const savedBoardJson = localStorage.getItem("board");
-        const savedDeckJson = localStorage.getItem("deck");
+        const savedBoardJson = localStorage.getItem(this.tableStorageKey);
+        const savedDeckJson = localStorage.getItem(this.deckStorageKey);
 
         let playTable = {
             player: new Hand,
@@ -126,15 +180,15 @@ class Game {
         let deck = new Deck(1)
 
         if (savedBoardJson) {
-            playTable = JSON.parse(localStorage.getItem("board"));
+            playTable = JSON.parse(localStorage.getItem(this.tableStorageKey));
         } else {
-            localStorage.setItem("board", JSON.stringify(playTable));
+            localStorage.setItem(this.tableStorageKey, JSON.stringify(playTable));
         }
 
         if (savedDeckJson) {
-            deck = JSON.parse(localStorage.getItem("deck"));
+            deck = JSON.parse(localStorage.getItem(this.deckStorageKey));
         } else {
-            localStorage.setItem("deck", JSON.stringify(deck))
+            localStorage.setItem(this.deckStorageKey, JSON.stringify(deck))
         }
 
 
@@ -143,22 +197,17 @@ class Game {
     // TODO: Create a function that can take a card off the deck and deal it to a board
 
     clearTable() {
-        this.table = {
-            player: new Hand,
-            dealer: new Hand,
-        };
-        this.saveGame()
+        localStorage.removeItem(this.tableStorageKey);
     }
     // TODO: Create a function that replaces the current deck
-    newDeck() { }
+    clearDeck() {
+        localStorage.removeItem(this.deckStorageKey);
+    }
     // TODO: Create a function that returns the winner ('dealer' or 'player') or undefined if no one has won
     winner() { }
 }
-const aGame = new Game;
-console.log(aGame)
-aGame.clearTable
-console.log(aGame)
 
+// This is a UI library that contains functions for altering the DOM
 class Ui {
     constructor() { }
     createCard(number, suit) {
