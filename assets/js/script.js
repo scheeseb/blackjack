@@ -32,7 +32,6 @@ class Deck {
         this.shuffle()
     }
 
-    // This function creates an array to index the cards for the game.  It first creates the 52 indexes sequentially, after doing so it shuffles them into a random order returning the randomized array.
     shuffle() {
         let array = this.deck
         let tmp, current, top = this.deck.length;
@@ -44,7 +43,6 @@ class Deck {
             array[top] = tmp;
         }
         return array;
-
     }
 }
 
@@ -52,7 +50,8 @@ class Deck {
 class Hand {
     constructor() {
         this.hand = [];
-        this.total = this.handSum(this.hand)
+        this.total = this.handSum();
+        this.status = this.findStatus()
     }
     dealToDealer(cardObject) {
         this.dealerBoard.push(cardObject)
@@ -61,18 +60,26 @@ class Hand {
     dealToPlayer(cardObject) {
         this.playerBoard.push(cardObject)
     }
-    // TODO: Create a function that accepts an array of card objects and returns the sum
-    handSum(board) {
+    handSum() {
         let total = 0
-        board.forEach(card => {
+        this.hand.forEach(card => {
             total = total + card
         })
         return total
     }
-    // TODO: Create a function that accepts a board array and returns "under", "blackjack", or "bust"
+    // TODO: Create a function that accepts a hand array and returns "under", "blackjack", or "bust"
+    findStatus() {
+        if (this.total < 21) {
+            return "under";
+        } else if (this.total > 21) {
+            return "bust";
+        } else {
+            return "blackjack"
+        }
+    }
 }
-
-
+const hand = new Hand;
+console.log(hand)
 
 /*
 pseudo code/game rules for game logic:
@@ -144,10 +151,6 @@ class Game {
 
 
 }
-
-// We can load a new game after every round. This will allow us to stash the old boards and keep a history
-const theGame = new Game
-console.log(theGame)
 
 
 class Ui {
