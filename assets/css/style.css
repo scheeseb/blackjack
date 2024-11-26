@@ -253,4 +253,10 @@ footer {
   bottom: 0;
   height: 1rem;
   width: 100%;
+  padding: 10px;
+}
+footer p {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
