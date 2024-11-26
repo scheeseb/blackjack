@@ -246,9 +246,11 @@ main {
 /* //////////Footer///////////// */
 /* ///////////////////////////// */
 footer {
-  margin-top: 1rem;
   flex: 1;
   background-color: var(--translucentGray);
-  padding: 2px;
   color: var(--tableWhite);
+  position: absolute;
+  bottom: 0;
+  height: 1rem;
+  width: 100%;
 }
