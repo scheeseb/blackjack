@@ -39,7 +39,10 @@ function createCard(number, suit) {
         span1.style.bottom = ".3em"
         span1.style.transform = "rotate(180deg)";
 
-
+        if (inputNumber === 1) {
+            span0.textContent = "A";
+            span1.textContent = "A";
+        }
         if (inputNumber === 11) {
             span0.textContent = "J";
             span1.textContent = "J";
@@ -100,18 +103,14 @@ function createCard(number, suit) {
         }
     }
     cardBody.append(leftColumn, centerColumn, rightColumn)
+    // Define the original length for use in the calculations
+    let originalLength = allSymbols.length;;
 
-    // IF the symbol array is 3 or less, add all of the symbols to the center div
     if (allSymbols.length < 4) {
         allSymbols.forEach(Element => {
             centerColumn.append(Element)
         });
-    }
-    // Define the original length for use in the calculations
-    let originalLength = allSymbols.length;;
-
-    // IF there are between 4 and 10 symbols
-    if (allSymbols.length >= 4 && allSymbols.length <= 10) {
+    } else if (allSymbols.length >= 4 && allSymbols.length <= 10) {
         // IF there are an odd numnber of symbols add one to the center column
         if (originalLength % 2 === 1) {
             centerColumn.append(allSymbols.pop());
@@ -123,9 +122,7 @@ function createCard(number, suit) {
             leftColumn.append(allSymbols.pop())
             rightColumn.append(allSymbols.pop())
         }
-    }
-    // IF it is a jack, apply the jack background image and paste in two symbols
-    if (allSymbols.length === 11) {
+    } else if (allSymbols.length === 11) {
         cardBody.style.backgroundImage = ((suit === "heart" || suit === "diamond") && 'url("./assets/cardAssets/svg/jackRed.svg")') || 'url("./assets/cardAssets/svg/jackBlack.svg")'
         cardBody.style.backgroundRepeat = "no-repeat";
         cardBody.style.backgroundPosition = "center";
