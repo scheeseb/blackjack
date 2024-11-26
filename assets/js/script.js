@@ -1,4 +1,6 @@
 /*
+
+// push test
 This card class accepts an index 0-51 and returns a card object
 
 The object has a suit, number, and color derived from the index
@@ -67,6 +69,8 @@ class Deck {
     }
 }
 
+const deck = new Deck;
+console.log(deck)
 /*
 This Hand class creates an array as this.hand
 this.hand will be where cards are stored
