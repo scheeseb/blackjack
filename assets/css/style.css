@@ -9,6 +9,7 @@
   --tableGreen: hsl(140, 82%, 13%);
   --tableWhite: hsl(30, 3%, 69%);
   --tableWhiteFaded: hsla(30, 3%, 69%, 0.8);
+  --translucentGray: hsla(0, 0%, 2%, 0.6);
 }
 
 /* ///////////////////////////// */
@@ -248,4 +249,7 @@ main {
 footer {
   margin-top: 1rem;
   flex: 1;
+  background-color: var(--translucentGray);
+  padding: 2px;
+  color: var(--tableWhite);
 }
