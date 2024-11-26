@@ -22,19 +22,20 @@
       <h1>BLACKJACK</h1>
     </header>
     <main>
-      <div class="score">
-        <div>
-          <p>Dealer: <span id="dealer-sum"></span></p>
-          <p>Player: <span id="player-sum"></span></p>
-        </div>
-        <p id="results"></p>
-      </div>
       <section class="table">
-        <div id="dealer">
+        <div class="playArea" id="dealer">
           <h2>Dealer</h2>
+          <p class="score" id="dealerScore">0</p>
         </div>
-        <div id="player">
+        <div class="playArea" id="player">
           <h2>Player</h2>
+          <p class="score" id="playerScore">0</p>
+        </div>
+        <div class="deck animate">
+          <img src="./assets/images/card.png" alt="A deck of Cards" />
+          <img src="./assets/images/card.png" alt="A deck of Cards" />
+          <img src="./assets/images/card.png" alt="A deck of Cards" />
+          <img src="./assets/images/card.png" alt="A deck of Cards" />
         </div>
       </section>
 
