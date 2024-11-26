@@ -6,8 +6,8 @@ function createCard(number, suit) {
     cardBody.className = "playingCard"
     cardBody.style.backgroundColor = "hsl(48, 39%, 83%)";
     cardBody.style.display = "flex";
-    cardBody.style.width = "125px";
-    cardBody.style.height = "180px";
+    cardBody.style.width = "4vw";
+    cardBody.style.height = "6vw";
     cardBody.style.borderRadius = "10px";
     cardBody.style.position = "relative";
     cardBody.style.padding = "15px";
@@ -18,7 +18,7 @@ function createCard(number, suit) {
         function createSpan() {
             const span = document.createElement("span");
             span.style.position = "absolute";
-            span.style.fontSize = "32px";
+            span.style.fontSize = "1vw";
             span.style.fontWeight = "bolder";
             span.style.fontFamily = "serif";
             span.style.color = color;
@@ -32,11 +32,11 @@ function createCard(number, suit) {
         const span1 = createSpan()
 
         // Position each span individually and rotate the second
-        span0.style.left = "10px";
-        span0.style.top = "10px";
+        span0.style.left = ".3em";
+        span0.style.top = ".3em";
 
-        span1.style.right = "10px";
-        span1.style.bottom = "10px"
+        span1.style.right = ".3em";
+        span1.style.bottom = ".3em"
         span1.style.transform = "rotate(180deg)";
 
 
@@ -92,7 +92,7 @@ function createCard(number, suit) {
 
             symbolElement.src = symbolSource;
             symbolElement.style.height = "auto";
-            symbolElement.style.width = "50%";
+            symbolElement.style.width = "100%";
             symbolElement.style.alignitems = "space-between"
             symbolElement.style.margin = "auto"
 

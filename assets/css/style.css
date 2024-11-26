@@ -157,7 +157,7 @@ main {
   justify-content: center;
   align-items: center;
   padding-left: 70px;
-  padding-top: 4vw;
+  padding-top: 3vw;
 }
 @media screen and (max-width: 600px) {
   .playArea:nth-child(2) {
@@ -185,7 +185,8 @@ main {
 /* ///////////////////////////// */
 .playingCard {
   box-shadow: -5px 5px 5px black;
-  margin-left: -70px;
+  margin-left: -30px;
+  margin-top: -20px;
 }
 
 /* ///////////////////////////// */
