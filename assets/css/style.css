@@ -151,6 +151,13 @@ main {
   position: relative;
   width: clamp(300px, 50%, 50%);
   height: calc(100% - 20px);
+
+  /* position the cards */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 70px;
+  padding-top: 4vw;
 }
 @media screen and (max-width: 600px) {
   .playArea:nth-child(2) {
