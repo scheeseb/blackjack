@@ -81,6 +81,9 @@ body {
   height: 100vh;
   text-align: center;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 /* ///////////////////////////// */
@@ -222,4 +225,27 @@ main {
 }
 .animate :last-child {
   animation: slideDown 0.4s infinite alternate;
+}
+/* ///////////////////////////// */
+/* ///////Playing Buttons/////// */
+/* ///////////////////////////// */
+#playButtons {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1rem;
+  height: 100px;
+}
+#playButtons > button {
+  width: 100px;
+  font-family: boardFont;
+  font-size: 2rem;
+}
+
+/* ///////////////////////////// */
+/* //////////Footer///////////// */
+/* ///////////////////////////// */
+footer {
+  margin-top: 1rem;
+  flex: 1;
 }
